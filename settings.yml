@@ -1,0 +1,23 @@
+custom_tab_icon:
+  default: "star"
+
+custom_tab_links:
+  type: list
+  default: "paint-brush, Forum appearance, /my/preferences/interface |bell-slash, Muted topics, /latest?state=muted"
+  description: "Add additional links in the format: icon, name, url"
+
+admin_only_tab_links:
+  type: list
+  default: "user-secret, Suspect users, /admin/users/list/suspect|baby, New users, /admin/users/list/new"
+  description: "Add additional links in the format: icon, name, url"
+
+moderator_only_tab_links:
+  type: list
+  default: "book, Top monthly readers, /u?order=posts_read&period=monthly"
+  description: "Add additional links in the format: icon, name, url"
+
+additional_icons:
+  default: "baby"
+  type: "list"
+  list_type: "compact"
+  description: "Add the name of free <a href='https://fontawesome.com'>Font Awesome</a> icons that aren't included in Discourse by default. e.g., rainbow, far-hand-peace"

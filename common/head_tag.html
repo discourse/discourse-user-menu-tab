@@ -1,0 +1,87 @@
+<script type="text/discourse-plugin" version="0.8">
+  const queryRegistry = require('discourse/widgets/widget').queryRegistry;
+  const createWidgetFrom = require('discourse/widgets/widget').createWidgetFrom;
+
+
+  function parseTabSettings(settings) {
+    items = [];
+
+    settings.split("|").map(i => {
+      seg = $.map(i.split(","), $.trim),
+      icon = seg[0],
+      content = seg[1],
+      href = seg[2]
+      items.push({icon: icon, content: content, href: href})
+    });
+  }
+
+  api.addUserMenuGlyph(widget => {
+    const glyph = {
+      className: "custom",
+      icon: settings.custom_tab_icon
+    };
+
+    if (queryRegistry("quick-access-panel")) {
+      glyph["action"] = "quickAccess";
+      glyph["actionParam"] = "custom";
+    }
+
+    return glyph;
+  });
+
+  const QuickAccessPanel = queryRegistry("quick-access-panel");
+
+  if (QuickAccessPanel) {
+    createWidgetFrom(QuickAccessPanel, "quick-access-custom", {
+      buildKey: () => "quick-access-custom",
+
+      hasMore() {
+        return false;
+      },
+
+      findNewItems() {
+        return Ember.RSVP.Promise.resolve(this._getItems());
+      },
+
+      itemHtml(item) {
+        return this.attach("quick-access-item", item);
+      },
+
+      _getItems() {
+        const items = this._getDefaultItems();
+
+        if (this._modButtons()) {
+          this._modButtons().forEach(button => {
+            items.push(button);
+          });
+        }
+
+        if (this._adminButtons()) {
+          this._adminButtons().forEach(button => {
+            items.push(button);
+          });
+        }
+        return items;
+      },
+
+      _getDefaultItems() {
+        parseTabSettings(settings.custom_tab_links);
+        return items;
+      },
+
+      _modButtons() {
+        if (this.currentUser.moderator) {
+          parseTabSettings(settings.moderator_only_tab_links);
+          return items;
+        }
+      },
+
+      _adminButtons() {
+        if (this.currentUser.admin) {
+          parseTabSettings(settings.admin_only_tab_links);
+          return items;
+        }
+      }
+    });
+  }
+</script>
