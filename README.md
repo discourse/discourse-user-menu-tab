@@ -1,4 +1,4 @@
-This is a Discourse theme component that allows you to add a custom tab containing links in the user dropdown menu. 
+This is a [Discourse](https://www.discourse.org/) theme component that allows you to add a custom tab containing links in the user dropdown menu. 
 
 ![02%20PM|671x499,50%](https://d11a6trkgmumsb.cloudfront.net/optimized/3X/d/9/d9ccc2a1f284593ad71bd319f938447cedd675aa_2_670x498.png) 
 
