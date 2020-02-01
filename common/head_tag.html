@@ -50,25 +50,29 @@
       _getItems() {
         const items = [];
 
+        if (this._getDefaultItems()) {
           this._getDefaultItems().forEach(button => {
             if (button.content != undefined) {
               items.push(button);
             }
           });
+        }
 
+        if (this._modButtons()) {
           this._modButtons().forEach(button => {
             if (button.content != undefined) {
               items.push(button);
             }
           });
+        }
 
-
+        if (this._adminButtons()) {
           this._adminButtons().forEach(button => {
             if (button.content != undefined) {
               items.push(button);
             }
           });
-
+        }
         return items;
       },
 
