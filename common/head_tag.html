@@ -48,19 +48,27 @@
       },
 
       _getItems() {
-        const items = this._getDefaultItems();
+        const items = [];
 
-        if (this._modButtons()) {
+          this._getDefaultItems().forEach(button => {
+            if (button.content != undefined) {
+              items.push(button);
+            }
+          });
+
           this._modButtons().forEach(button => {
-            items.push(button);
+            if (button.content != undefined) {
+              items.push(button);
+            }
           });
-        }
 
-        if (this._adminButtons()) {
+
           this._adminButtons().forEach(button => {
-            items.push(button);
+            if (button.content != undefined) {
+              items.push(button);
+            }
           });
-        }
+
         return items;
       },
 
