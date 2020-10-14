@@ -35,8 +35,8 @@
     createWidgetFrom(QuickAccessPanel, "quick-access-custom", {
       buildKey: () => "quick-access-custom",
 
-      hasMore() {
-        return false;
+      hideBottomItems() {
+        return true;
       },
 
       findNewItems() {
