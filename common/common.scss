@@ -1,3 +1,7 @@
 div.menu-links-header .menu-links-row li.glyphs {
   flex-wrap: nowrap;
 }
+
+.user-menu .quick-access-panel.quick-access-custom li:not(.show-all) a {
+  color: var(--primary);
+}
