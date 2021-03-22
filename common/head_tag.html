@@ -36,16 +36,17 @@
       tagName: "div.quick-access-panel.quick-access-custom",
       buildKey: () => "quick-access-custom",
 
-      hasMore() {
-        return false;
+      hideBottomItems() {
+        return true;
       },
 
       findNewItems() {
-        return Ember.RSVP.Promise.resolve(this._getItems());
+        return Promise.resolve(this._getItems());
       },
 
       itemHtml(item) {
-        return this.attach("quick-access-item", item);
+        const widgetType = item.widget || "quick-access-item";
+        return this.attach(widgetType, item);
       },
 
       _getItems() {
