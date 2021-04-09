@@ -4,14 +4,12 @@
 
 
   function parseTabSettings(settings) {
-    items = [];
-
-    settings.split("|").map(i => {
-      seg = $.map(i.split(","), $.trim),
+    return settings.split("|").map(i => {
+      const seg = $.map(i.split(","), $.trim),
       icon = seg[0],
       content = seg[1],
-      href = seg[2]
-      items.push({icon: icon, content: content, href: href})
+      href = seg[2];
+      return { icon: icon, content: content, href: href };
     });
   }
 
@@ -79,21 +77,18 @@
       },
 
       _getDefaultItems() {
-        parseTabSettings(settings.custom_tab_links);
-        return items;
+        return parseTabSettings(settings.custom_tab_links);
       },
 
       _modButtons() {
         if (this.currentUser.moderator) {
-          parseTabSettings(settings.moderator_only_tab_links);
-          return items;
+          return parseTabSettings(settings.moderator_only_tab_links);
         }
       },
 
       _adminButtons() {
         if (this.currentUser.admin) {
-          parseTabSettings(settings.admin_only_tab_links);
-          return items;
+          return parseTabSettings(settings.admin_only_tab_links);
         }
       }
     });
