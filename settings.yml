@@ -16,6 +16,10 @@ moderator_only_tab_links:
   default: "book, Top monthly readers, /u?order=posts_read&period=monthly"
   description: "Add additional links in the format: icon, name, url"
 
+custom_tab_url:
+  default: "/"
+  description: "After opening the menu, clicking the icon again will bring you to this URL"
+
 additional_icons:
   default: "baby"
   type: "list"

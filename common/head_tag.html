@@ -1,7 +1,7 @@
 <script type="text/discourse-plugin" version="0.8">
   const queryRegistry = require('discourse/widgets/widget').queryRegistry;
   const createWidgetFrom = require('discourse/widgets/widget').createWidgetFrom;
-
+  const I18n = require("I18n").default;
 
   function parseTabSettings(settings) {
     return settings.split("|").map(i => {
@@ -13,8 +13,11 @@
     });
   }
 
+  I18n.translations.en.js.tab_title = I18n.t(themePrefix("custom_user_tab_title"));
+
   api.addUserMenuGlyph(widget => {
     const glyph = {
+      title: 'tab_title',
       className: "custom",
       icon: settings.custom_tab_icon
     };
@@ -22,6 +25,7 @@
     if (queryRegistry("quick-access-panel")) {
       glyph["action"] = "quickAccess";
       glyph["actionParam"] = "custom";
+      glyph["data"] = { url: settings.custom_tab_url };
     }
 
     return glyph;
