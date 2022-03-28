@@ -8,8 +8,9 @@
       const seg = $.map(i.split(","), $.trim),
       icon = seg[0],
       content = seg[1],
-      href = seg[2];
-      return { icon: icon, content: content, href: href };
+      href = seg[2],
+      groups = seg[3] ? $.map(seg[3].split("-"), $.trim) : null;
+      return { icon: icon, content: content, href: href, groups: groups };
     });
   }
 
@@ -32,6 +33,7 @@
   });
 
   const QuickAccessPanel = queryRegistry("quick-access-panel");
+  const currentUser = api.getCurrentUser();
 
   if (QuickAccessPanel) {
     createWidgetFrom(QuickAccessPanel, "quick-access-custom", {
@@ -53,10 +55,15 @@
 
       _getItems() {
         const items = [];
+        const currentUserGroups = currentUser.groups.map(x => x["name"]);
 
         if (this._getDefaultItems()) {
           this._getDefaultItems().forEach(button => {
             if (button.content != undefined) {
+              if (!currentUser.admin && button.groups && !currentUserGroups.some(r=> button.groups.includes(r))) {
+                return;
+              }
+
               items.push(button);
             }
           });
