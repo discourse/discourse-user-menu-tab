@@ -9,7 +9,7 @@
       icon = seg[0],
       content = seg[1],
       href = seg[2],
-      groups = seg[3] ? $.map(seg[3].split("-"), $.trim) : null;
+      groups = seg[3] ? seg[3].split("-").map((group) => group.trim().toLowerCase()) : null;
       return { icon: icon, content: content, href: href, groups: groups };
     });
   }
@@ -55,7 +55,7 @@
 
       _getItems() {
         const items = [];
-        const currentUserGroups = currentUser.groups.map(x => x["name"]);
+        const currentUserGroups = currentUser.groups.map(x => x["name"].toLowerCase());
 
         if (this._getDefaultItems()) {
           this._getDefaultItems().forEach(button => {
