@@ -1,0 +1,7 @@
+{
+  "name": "user-menu-tab",
+  "private": true,
+  "devDependencies": {
+    "eslint-config-discourse": "^3.2.0"
+  }
+}
