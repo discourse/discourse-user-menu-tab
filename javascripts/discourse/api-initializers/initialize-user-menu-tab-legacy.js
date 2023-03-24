@@ -2,6 +2,10 @@ import { apiInitializer } from "discourse/lib/api";
 import { createWidgetFrom, queryRegistry } from "discourse/widgets/widget";
 import I18n from "I18n";
 
+/**
+ * This file is safe to delete once core has removed the legacy user menu
+ */
+
 function parseTabSettings(settings) {
   return settings.split("|").map((i) => {
     const seg = $.map(i.split(","), $.trim),
