@@ -1,26 +1,30 @@
-<script type="text/discourse-plugin" version="0.8">
-  const queryRegistry = require('discourse/widgets/widget').queryRegistry;
-  const createWidgetFrom = require('discourse/widgets/widget').createWidgetFrom;
-  const I18n = require("I18n").default;
+import { apiInitializer } from "discourse/lib/api";
+import { createWidgetFrom, queryRegistry } from "discourse/widgets/widget";
+import I18n from "I18n";
 
-  function parseTabSettings(settings) {
-    return settings.split("|").map(i => {
-      const seg = $.map(i.split(","), $.trim),
+function parseTabSettings(settings) {
+  return settings.split("|").map((i) => {
+    const seg = $.map(i.split(","), $.trim),
       icon = seg[0],
       content = seg[1],
       href = seg[2],
-      groups = seg[3] ? seg[3].split("-").map((group) => group.trim().toLowerCase()) : null;
-      return { icon: icon, content: content, href: href, groups: groups };
-    });
-  }
+      groups = seg[3]
+        ? seg[3].split("-").map((group) => group.trim().toLowerCase())
+        : null;
+    return { icon, content, href, groups };
+  });
+}
 
-  I18n.translations.en.js.tab_title = I18n.t(themePrefix("custom_user_tab_title"));
+export default apiInitializer("0.8", (api) => {
+  I18n.translations.en.js.tab_title = I18n.t(
+    themePrefix("custom_user_tab_title")
+  );
 
-  api.addUserMenuGlyph(widget => {
+  api.addUserMenuGlyph(() => {
     const glyph = {
-      title: 'tab_title',
+      title: "tab_title",
       className: "custom",
-      icon: settings.custom_tab_icon
+      icon: settings.custom_tab_icon,
     };
 
     if (queryRegistry("quick-access-panel")) {
@@ -55,12 +59,18 @@
 
       _getItems() {
         const items = [];
-        const currentUserGroups = currentUser.groups.map(x => x["name"].toLowerCase());
+        const currentUserGroups = currentUser.groups.map((x) =>
+          x["name"].toLowerCase()
+        );
 
         if (this._getDefaultItems()) {
-          this._getDefaultItems().forEach(button => {
-            if (button.content != undefined) {
-              if (!currentUser.admin && button.groups && !currentUserGroups.some(r=> button.groups.includes(r))) {
+          this._getDefaultItems().forEach((button) => {
+            if (button.content !== undefined) {
+              if (
+                !currentUser.admin &&
+                button.groups &&
+                !currentUserGroups.some((r) => button.groups.includes(r))
+              ) {
                 return;
               }
 
@@ -70,16 +80,16 @@
         }
 
         if (this._modButtons()) {
-          this._modButtons().forEach(button => {
-            if (button.content != undefined) {
+          this._modButtons().forEach((button) => {
+            if (button.content !== undefined) {
               items.push(button);
             }
           });
         }
 
         if (this._adminButtons()) {
-          this._adminButtons().forEach(button => {
-            if (button.content != undefined) {
+          this._adminButtons().forEach((button) => {
+            if (button.content !== undefined) {
               items.push(button);
             }
           });
@@ -101,7 +111,7 @@
         if (this.currentUser.admin) {
           return parseTabSettings(settings.admin_only_tab_links);
         }
-      }
+      },
     });
   }
-</script>
+});
