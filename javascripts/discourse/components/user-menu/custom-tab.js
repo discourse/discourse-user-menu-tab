@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
+import $ from "jquery";
 
 function parseTabSettings(settings) {
   return settings.split("|").map((i) => {
