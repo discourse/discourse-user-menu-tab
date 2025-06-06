@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
 import $ from "jquery";
+import DButton from "discourse/components/d-button";
 
 function parseTabSettings(settings) {
   return settings.split("|").map((i) => {
@@ -68,4 +69,19 @@ export default class UserMenuCustomTab extends Component {
       return parseTabSettings(settings.admin_only_tab_links);
     }
   }
+
+  <template>
+    <ul class="user-menu-custom-tab">
+      {{#each this.items as |item|}}
+        <li>
+          <DButton
+            class="btn-flat"
+            @href={{item.href}}
+            @icon={{item.icon}}
+            @translatedLabel={{item.content}}
+          />
+        </li>
+      {{/each}}
+    </ul>
+  </template>
 }
