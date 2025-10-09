@@ -2,7 +2,7 @@ import { apiInitializer } from "discourse/lib/api";
 import { i18n } from "discourse-i18n";
 import UserMenuCustomTab from "../components/user-menu/custom-tab";
 
-export default apiInitializer("0.8", (api) => {
+export default apiInitializer((api) => {
   api.registerUserMenuTab((UserMenuTab) => {
     return class extends UserMenuTab {
       id = "user-menu-tab-custom";
